@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+data/
+.torch/
+manifests/
+outputs/*
+!outputs/reports/
+outputs/reports/*
+!outputs/reports/results_table_v2.csv
+!outputs/reports/curves_v2.csv
+!outputs/reports/subgroups_v2.csv
+!outputs/reports/calibration_selective_v2.csv
+docs/label_policy.md

@@ -1,0 +1,64 @@
+model,class,auc,auc_lo,auc_hi,ap,ap_lo,ap_hi,prevalence
+Fine-tuned MobileNetV3-S (weighted),MACRO,0.707,0.687,0.728,0.255,,,
+Fine-tuned MobileNetV3-S (weighted),Allergic Contact Dermatitis,0.644,0.604,0.683,0.293,0.25,0.352,0.191
+Fine-tuned MobileNetV3-S (weighted),Eczema,0.643,0.607,0.677,0.443,0.395,0.499,0.314
+Fine-tuned MobileNetV3-S (weighted),Folliculitis,0.787,0.74,0.835,0.287,0.217,0.395,0.078
+Fine-tuned MobileNetV3-S (weighted),Herpes Simplex,0.761,0.69,0.824,0.159,0.102,0.265,0.046
+Fine-tuned MobileNetV3-S (weighted),Insect Bite,0.705,0.653,0.751,0.263,0.205,0.34,0.114
+Fine-tuned MobileNetV3-S (weighted),Psoriasis,0.705,0.64,0.767,0.152,0.097,0.244,0.055
+Fine-tuned MobileNetV3-S (weighted),Tinea,0.663,0.585,0.738,0.126,0.079,0.212,0.051
+Fine-tuned MobileNetV3-S (weighted),Urticaria,0.749,0.713,0.783,0.316,0.261,0.388,0.149
+Frozen MobileNetV3-S,MACRO,0.669,0.647,0.689,0.221,,,
+Frozen MobileNetV3-S,Allergic Contact Dermatitis,0.58,0.538,0.622,0.244,0.208,0.292,0.191
+Frozen MobileNetV3-S,Eczema,0.633,0.601,0.667,0.426,0.381,0.479,0.314
+Frozen MobileNetV3-S,Folliculitis,0.742,0.689,0.792,0.191,0.141,0.27,0.078
+Frozen MobileNetV3-S,Herpes Simplex,0.763,0.692,0.83,0.173,0.104,0.28,0.046
+Frozen MobileNetV3-S,Insect Bite,0.603,0.549,0.656,0.178,0.139,0.239,0.114
+Frozen MobileNetV3-S,Psoriasis,0.705,0.631,0.771,0.154,0.099,0.234,0.055
+Frozen MobileNetV3-S,Tinea,0.629,0.551,0.705,0.083,0.056,0.125,0.051
+Frozen MobileNetV3-S,Urticaria,0.695,0.649,0.738,0.323,0.259,0.394,0.149
+Frozen ResNet-18,MACRO,0.659,0.637,0.681,0.212,,,
+Frozen ResNet-18,Allergic Contact Dermatitis,0.584,0.541,0.626,0.252,0.215,0.3,0.191
+Frozen ResNet-18,Eczema,0.592,0.558,0.626,0.393,0.351,0.445,0.314
+Frozen ResNet-18,Folliculitis,0.752,0.699,0.808,0.227,0.164,0.319,0.078
+Frozen ResNet-18,Herpes Simplex,0.634,0.552,0.717,0.101,0.059,0.173,0.046
+Frozen ResNet-18,Insect Bite,0.649,0.598,0.696,0.189,0.147,0.251,0.114
+Frozen ResNet-18,Psoriasis,0.675,0.6,0.744,0.124,0.085,0.187,0.055
+Frozen ResNet-18,Tinea,0.689,0.612,0.761,0.112,0.074,0.177,0.051
+Frozen ResNet-18,Urticaria,0.697,0.657,0.738,0.3,0.244,0.364,0.149
+Frozen EfficientNet-B0,MACRO,0.634,0.612,0.655,0.207,,,
+Frozen EfficientNet-B0,Allergic Contact Dermatitis,0.56,0.52,0.603,0.231,0.198,0.278,0.191
+Frozen EfficientNet-B0,Eczema,0.591,0.557,0.628,0.372,0.333,0.42,0.314
+Frozen EfficientNet-B0,Folliculitis,0.637,0.573,0.697,0.146,0.106,0.217,0.078
+Frozen EfficientNet-B0,Herpes Simplex,0.696,0.609,0.775,0.168,0.096,0.276,0.046
+Frozen EfficientNet-B0,Insect Bite,0.632,0.578,0.682,0.205,0.154,0.272,0.114
+Frozen EfficientNet-B0,Psoriasis,0.705,0.631,0.775,0.182,0.118,0.286,0.055
+Frozen EfficientNet-B0,Tinea,0.633,0.559,0.707,0.087,0.06,0.139,0.051
+Frozen EfficientNet-B0,Urticaria,0.617,0.569,0.664,0.262,0.207,0.331,0.149
+Frozen MobileNetV3-S (weighted),MACRO,0.693,0.674,0.713,0.246,,,
+Frozen MobileNetV3-S (weighted),Allergic Contact Dermatitis,0.612,0.57,0.653,0.282,0.238,0.343,0.191
+Frozen MobileNetV3-S (weighted),Eczema,0.673,0.641,0.706,0.458,0.412,0.511,0.314
+Frozen MobileNetV3-S (weighted),Folliculitis,0.762,0.711,0.807,0.214,0.158,0.298,0.078
+Frozen MobileNetV3-S (weighted),Herpes Simplex,0.779,0.715,0.838,0.196,0.117,0.318,0.046
+Frozen MobileNetV3-S (weighted),Insect Bite,0.623,0.572,0.675,0.204,0.153,0.268,0.114
+Frozen MobileNetV3-S (weighted),Psoriasis,0.699,0.627,0.764,0.154,0.098,0.233,0.055
+Frozen MobileNetV3-S (weighted),Tinea,0.675,0.606,0.735,0.093,0.066,0.142,0.051
+Frozen MobileNetV3-S (weighted),Urticaria,0.724,0.683,0.764,0.364,0.298,0.434,0.149
+Frozen ResNet-18 (weighted),MACRO,0.672,0.651,0.693,0.214,,,
+Frozen ResNet-18 (weighted),Allergic Contact Dermatitis,0.604,0.562,0.645,0.272,0.232,0.333,0.191
+Frozen ResNet-18 (weighted),Eczema,0.624,0.592,0.657,0.402,0.36,0.452,0.314
+Frozen ResNet-18 (weighted),Folliculitis,0.764,0.716,0.815,0.242,0.174,0.341,0.078
+Frozen ResNet-18 (weighted),Herpes Simplex,0.675,0.601,0.746,0.118,0.069,0.2,0.046
+Frozen ResNet-18 (weighted),Insect Bite,0.637,0.584,0.687,0.184,0.144,0.241,0.114
+Frozen ResNet-18 (weighted),Psoriasis,0.673,0.599,0.74,0.118,0.081,0.19,0.055
+Frozen ResNet-18 (weighted),Tinea,0.706,0.628,0.78,0.118,0.08,0.177,0.051
+Frozen ResNet-18 (weighted),Urticaria,0.695,0.655,0.736,0.26,0.215,0.318,0.149
+Frozen EfficientNet-B0 (weighted),MACRO,0.704,0.686,0.723,0.239,,,
+Frozen EfficientNet-B0 (weighted),Allergic Contact Dermatitis,0.603,0.564,0.641,0.253,0.216,0.305,0.191
+Frozen EfficientNet-B0 (weighted),Eczema,0.652,0.619,0.686,0.43,0.385,0.485,0.314
+Frozen EfficientNet-B0 (weighted),Folliculitis,0.737,0.681,0.789,0.26,0.189,0.366,0.078
+Frozen EfficientNet-B0 (weighted),Herpes Simplex,0.789,0.724,0.845,0.199,0.124,0.301,0.046
+Frozen EfficientNet-B0 (weighted),Insect Bite,0.663,0.615,0.709,0.181,0.145,0.233,0.114
+Frozen EfficientNet-B0 (weighted),Psoriasis,0.791,0.738,0.836,0.181,0.124,0.276,0.055
+Frozen EfficientNet-B0 (weighted),Tinea,0.713,0.645,0.777,0.143,0.09,0.228,0.051
+Frozen EfficientNet-B0 (weighted),Urticaria,0.687,0.646,0.727,0.264,0.218,0.328,0.149
