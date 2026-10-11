@@ -117,3 +117,4 @@ folds, 28 metadata baselines, 29 and 30 frozen features, 31 fine-tuning, 33 and 
 bootstraps, 37 results table, 38 calibration, 40 subgroups, 41 errors). Images are downloaded from
 the public SCIN bucket and are never committed (see .gitignore). Seed 42 everywhere.
 
+
