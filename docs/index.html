@@ -1,0 +1,139 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SCIN skin-condition pilot: audit and results</title>
+<style>
+:root{--bg:#fff;--fg:#1d2127;--muted:#5b6572;--line:#d9dee5;--card:#f6f8fa;--a:#2563eb;--b:#d97706;--warn:#b42318}
+@media (prefers-color-scheme:dark){:root{--bg:#14171c;--fg:#e6e9ee;--muted:#9aa4b2;--line:#2c333d;--card:#1b2027;--a:#6aa0ff;--b:#f0a648;--warn:#ff8a7a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.7rem;line-height:1.25;margin:.2em 0}
+h2{font-size:1.2rem;margin:2em 0 .5em;border-bottom:1px solid var(--line);padding-bottom:.25em}
+.lead{color:var(--muted)}
+.warn{border-left:4px solid var(--warn);background:var(--card);padding:10px 14px;border-radius:4px}
+.table-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;white-space:nowrap}
+th{color:var(--muted);font-weight:600}
+.bar{display:flex;align-items:center;gap:8px;margin:3px 0;font-size:.85rem}
+.bar .name{flex:0 0 40%;min-width:0}
+.bar .track{position:relative;flex:1;height:14px;background:var(--card);border-radius:7px}
+.bar .rng{position:absolute;top:5px;height:4px;border-radius:2px}
+.bar .dot{position:absolute;top:1px;width:12px;height:12px;border-radius:6px;margin-left:-6px}
+.bar .val{flex:0 0 20%;color:var(--muted);text-align:right}
+.chance{position:absolute;top:-3px;bottom:-3px;width:0;border-left:1px dashed var(--muted)}
+.legend span{margin-right:14px;font-size:.85rem}
+.sw{display:inline-block;width:10px;height:10px;border-radius:5px;margin-right:4px}
+small,.note{color:var(--muted);font-size:.85rem}
+a{color:var(--a)}
+</style>
+</head>
+<body>
+<main>
+<p class="lead">Research prototype. Md. Easir Rahat.</p>
+<h1>Skin-condition classification on SCIN: what a careful small study can and cannot show</h1>
+<p class="warn"><strong>Not a medical device.</strong> Nothing here predicts anything about a person's skin. There is no model to try on this page, and no SCIN image or model weight is published.</p>
+
+<h2>In one paragraph</h2>
+<p>I trained and evaluated image models on 1,172 dermatologist-labelled cases from the SCIN dataset (8 conditions, all body parts), with group-aware splits, metadata-only controls, calibration, ranking metrics and a skin-tone composition check. The honest result is modest: the models rank cases above chance, but do not clearly beat what contributor-reported metadata already carries, fine-tuning is not shown to beat frozen features, and most predictions are still wrong. The first plan (facial skin conditions) did not survive contact with the data.</p>
+
+<h2>How the plan changed</h2>
+<div class="table-wrap"><table>
+<tr><th>Step</th><th>What happened</th></tr>
+<tr><td>Facial scope</td><td>SCIN has only a coarse head-or-neck tag. In a manual review of 267 candidate images, 9 clearly showed a face, 83 partly, 125 not at all, 50 unclear. The scope moved away from "facial".</td></tr>
+<tr><td>v1</td><td>Head/neck only, 114 cases, 4 classes: no model distinguishable from chance.</td></tr>
+<tr><td>v2</td><td>All body parts, 1,172 cases, 8 classes. Started after seeing the v1 result, so exploratory.</td></tr>
+<tr><td>Annotation quality</td><td>One annotator; intra-rater agreement on 12 re-shown images was poor (exact 2/12, kappa -0.11).</td></tr>
+</table></div>
+
+<h2>The data</h2>
+<p>Labels are dermatologist estimates from photographs, not biopsy results. In 30.2% of labelled cases dermatologists tied for the top condition; these were excluded, so the classes describe a consensus subset. Cases that share a byte-identical image were merged into one group for splitting.</p>
+<div class="table-wrap"><table>
+<tr><th>Class</th><th>Cases</th></tr>
+<tr><td>Eczema</td><td>368</td></tr><tr><td>Allergic Contact Dermatitis</td><td>224</td></tr>
+<tr><td>Urticaria</td><td>175</td></tr><tr><td>Insect Bite</td><td>134</td></tr>
+<tr><td>Folliculitis</td><td>92</td></tr><tr><td>Psoriasis</td><td>65</td></tr>
+<tr><td>Tinea</td><td>60</td></tr><tr><td>Herpes Simplex</td><td>54</td></tr>
+</table></div>
+<p><strong>Skin tone.</strong> Dermatologist-estimated Fitzpatrick type (1,105 cases with an estimate): FST1 116, FST2 412, FST3 341, FST4 163, FST5 66, FST6 7. Types 5-6 are 73 cases (6.6%). The data cannot support any statement about darker skin tones, and I make no fairness claim.</p>
+
+<h2>Results: balanced accuracy</h2>
+<p>Pooled out-of-fold, 95% interval from a bootstrap over duplicate-linked groups. Chance for 8 classes is 0.125 (dashed line).</p>
+<p class="legend"><span><i class="sw" style="background:var(--a)"></i>locked protocol</span><span><i class="sw" style="background:var(--b)"></i>class-weighted control (added after seeing results)</span></p>
+<div id="chart"></div>
+<p class="note">The fine-tuned model used a class-weighted loss; the other locked-protocol models did not, so compare it with the orange rows. Class weighting raised balanced accuracy by about 0.04 to 0.07 for every baseline.</p>
+<ul>
+<li>Image models are above chance and above body-part-only metadata.</li>
+<li>At the argmax they are not distinguishable from the richer contributor-reported metadata (upper bound 0.285 when class-weighted).</li>
+<li>Fine-tuning is not shown to beat class-weighted frozen features (paired differences +0.019 to +0.028, all intervals include 0).</li>
+<li>Overall accuracy of the fine-tuned model is 0.294, below simply predicting Eczema (0.314).</li>
+</ul>
+
+<h2>Ranking (ROC-AUC, secondary metric added later)</h2>
+<div class="table-wrap"><table>
+<tr><th>Model</th><th>Macro AUC [95% CI]</th></tr>
+<tr><td>Body parts (class-weighted)</td><td>0.599 [0.577, 0.620]</td></tr>
+<tr><td>Richer metadata (class-weighted)</td><td>0.649 [0.627, 0.670]</td></tr>
+<tr><td>Frozen MobileNetV3-S (class-weighted)</td><td>0.693 [0.674, 0.713]</td></tr>
+<tr><td>Frozen ResNet-18 (class-weighted)</td><td>0.672 [0.651, 0.693]</td></tr>
+<tr><td>Frozen EfficientNet-B0 (class-weighted)</td><td>0.704 [0.686, 0.723]</td></tr>
+<tr><td>Fine-tuned MobileNetV3-S</td><td>0.707 [0.687, 0.728]</td></tr>
+</table></div>
+<p>By ranking, three of four image models exceed richer metadata (five comparisons, no multiplicity correction), while by balanced accuracy none clearly does. The metrics disagree, and the primary metric was balanced accuracy. Image models may also encode body location.</p>
+
+<h2>Are the probabilities reliable?</h2>
+<div class="table-wrap"><table>
+<tr><th>Model</th><th>ECE</th><th>Brier</th><th>NLL</th></tr>
+<tr><td>Fine-tuned (class-weighted)</td><td>0.056</td><td>0.814</td><td>1.824</td></tr>
+<tr><td>Frozen MobileNetV3-S</td><td>0.223</td><td>0.872</td><td>2.132</td></tr>
+<tr><td>Frozen ResNet-18</td><td>0.119</td><td>0.833</td><td>1.938</td></tr>
+<tr><td>Frozen EfficientNet-B0</td><td>0.340</td><td>1.007</td><td>4.195</td></tr>
+<tr><td>Reference: class frequencies only</td><td>-</td><td>0.816</td><td>1.866</td></tr>
+<tr><td>Reference: uniform guess</td><td>-</td><td>0.875</td><td>2.079</td></tr>
+</table></div>
+<p>Unweighted frozen models are overconfident (mean confidence 0.44 to 0.64 against accuracy 0.30 to 0.32). Keeping only the 20% most confident cases lifts the fine-tuned model's accuracy from 0.294 to 0.372, which still means most of those predictions are wrong. Confidence-based abstention helps a little and does not make these models reliable.</p>
+
+<h2>Limitations</h2>
+<ul>
+<li>Small sample, wide intervals, single annotator, labels estimated from photographs, no healthy class.</li>
+<li>The v2 design followed a null v1 result. The protocol log was created after some runs and says so at its top; file times indicate order but do not prove it.</li>
+<li>Several analyses (class-weight control, subgroups, calibration, AUC) were added after the main results.</li>
+<li>Eczema and Allergic Contact Dermatitis overlap clinically and were kept separate. No clinical interpretation is attached to any error pattern.</li>
+</ul>
+
+<h2>Code, protocol and card</h2>
+<p><a href="https://github.com/easirht/scin-skin-condition-pilot">Repository</a> &middot; <a href="https://github.com/easirht/scin-skin-condition-pilot/blob/main/README.md">README</a> &middot; <a href="https://github.com/easirht/scin-skin-condition-pilot/blob/main/MODEL_CARD.md">Model card</a> &middot; <a href="https://github.com/easirht/scin-skin-condition-pilot/blob/main/docs/label_policy_v2.md">Protocol log</a></p>
+
+<h2>Attribution</h2>
+<p class="note">This project uses the SCIN (Skin Condition Image Network) dataset, released by Google under the SCIN Data Use License (<a href="https://github.com/google-research-datasets/scin/blob/main/LICENSE">license</a>; <a href="https://github.com/google-research-datasets/scin">dataset</a>). Ward A, et al. JAMA Netw Open. 2024;7(11):e2446615. doi:10.1001/jamanetworkopen.2024.46615. Derived numbers on this page were computed from the dataset and modified from the original; no SCIN images are shown. Not endorsed by or affiliated with Google or the SCIN authors.</p>
+</main>
+<script>
+var LO=0.10, HI=0.35;
+function pos(v){return Math.max(0,Math.min(100,(v-LO)/(HI-LO)*100))}
+var rows=[
+["Majority class",0.125,0.125,0.125,"a"],
+["Body parts only + LR",0.163,0.148,0.179,"a"],
+["Richer metadata + LR",0.207,0.184,0.232,"a"],
+["Frozen MobileNetV3-S + LR",0.209,0.185,0.232,"a"],
+["Frozen ResNet-18 + LR",0.214,0.192,0.237,"a"],
+["Frozen EfficientNet-B0 + LR",0.218,0.193,0.244,"a"],
+["Fine-tuned MobileNetV3-S (weighted loss)",0.301,0.272,0.333,"a"],
+["Body parts only + LR, weighted",0.205,0.176,0.235,"b"],
+["Richer metadata + LR, weighted",0.253,0.222,0.285,"b"],
+["Frozen MobileNetV3-S, weighted",0.282,0.252,0.310,"b"],
+["Frozen ResNet-18, weighted",0.273,0.243,0.305,"b"],
+["Frozen EfficientNet-B0, weighted",0.282,0.250,0.314,"b"]
+];
+var el=document.getElementById("chart");
+rows.forEach(function(r){
+  var c="var(--"+r[4]+")";
+  var d=document.createElement("div");d.className="bar";
+  d.innerHTML='<div class="name">'+r[0]+'</div><div class="track"><div class="chance" style="left:'+pos(0.125)+'%"></div><div class="rng" style="left:'+pos(r[2])+'%;width:'+Math.max(0.6,pos(r[3])-pos(r[2]))+'%;background:'+c+'"></div><div class="dot" style="left:'+pos(r[1])+'%;background:'+c+'"></div></div><div class="val">'+r[1].toFixed(3)+' ['+r[2].toFixed(3)+', '+r[3].toFixed(3)+']</div>';
+  el.appendChild(d);
+});
+</script>
+</body>
+</html>
