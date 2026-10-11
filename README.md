@@ -1,4 +1,4 @@
-﻿# Skin condition classification on SCIN: a pre-registered pilot with controls
+﻿# Skin condition classification on SCIN: a protocol-logged pilot with controls
 
 Research prototype. **Not a medical device and not for diagnosis.** Predictions are research
 outputs; they must not be used to decide anything about a person's health.
@@ -116,3 +116,4 @@ Scripts are numbered in src/ (00 download metadata, 04 and 24 images, 25 duplica
 folds, 28 metadata baselines, 29 and 30 frozen features, 31 fine-tuning, 33 and 36 paired
 bootstraps, 37 results table, 38 calibration, 40 subgroups, 41 errors). Images are downloaded from
 the public SCIN bucket and are never committed (see .gitignore). Seed 42 everywhere.
+
