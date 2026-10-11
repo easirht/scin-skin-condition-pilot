@@ -16,7 +16,7 @@ h2{font-size:1.2rem;margin:2em 0 .5em;border-bottom:1px solid var(--line);paddin
 .warn{border-left:4px solid var(--warn);background:var(--card);padding:10px 14px;border-radius:4px}
 .table-wrap{overflow-x:auto}
 table{border-collapse:collapse;width:100%;font-size:.92rem}
-th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;white-space:nowrap}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;white-space:normal;vertical-align:top}
 th{color:var(--muted);font-weight:600}
 .bar{display:flex;align-items:center;gap:8px;margin:3px 0;font-size:.85rem}
 .bar .name{flex:0 0 40%;min-width:0}
@@ -38,7 +38,7 @@ a{color:var(--a)}
 <p class="warn"><strong>Not a medical device.</strong> Nothing here predicts anything about a person's skin. There is no model to try on this page, and no SCIN image or model weight is published.</p>
 
 <h2>In one paragraph</h2>
-<p>I trained and evaluated image models on 1,172 dermatologist-labelled cases from the SCIN dataset (8 conditions, all body parts), with group-aware splits, metadata-only controls, calibration, ranking metrics and a skin-tone composition check. The honest result is modest: the models rank cases above chance, but do not clearly beat what contributor-reported metadata already carries, fine-tuning is not shown to beat frozen features, and most predictions are still wrong. The first plan (facial skin conditions) did not survive contact with the data.</p>
+<p>I trained and evaluated image models on 1,172 dermatologist-labelled cases from the SCIN dataset (8 conditions, all body parts), with group-aware splits, metadata-only controls, calibration, ranking metrics and a skin-tone composition check. The honest result is modest: the models rank cases above chance, but whether they beat what contributor-reported metadata already carries depends on the metric (not at the argmax, modestly by ranking), fine-tuning is not shown to beat frozen features, and most predictions are still wrong. The first plan (facial skin conditions) did not survive contact with the data.</p>
 
 <h2>How the plan changed</h2>
 <div class="table-wrap"><table>
@@ -137,3 +137,5 @@ rows.forEach(function(r){
 </script>
 </body>
 </html>
+
+
